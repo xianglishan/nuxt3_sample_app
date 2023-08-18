@@ -19,6 +19,8 @@
     "npm": "9.8.1"
   },
   "dependencies": {
+    "openai": "^4.0.0",
+    "openai-streams": "^6.2.0",
     "sass": "^1.65.1",
     "vite-plugin-vuetify": "^1.0.2",
     "vuetify": "^3.3.12"

@@ -3,10 +3,9 @@
         <div>
             <v-navigation-drawer
             expand-on-hover
-            location="start"
             :rail="rail"
             >
-                <v-list @click:select="test">
+                <v-list @click:select="">
                     <v-list-item :prepend-icon="mdiMenu" title="Xiang Lishan"></v-list-item>
                     <v-divider></v-divider>
                     <v-list-item :prepend-icon="mdiChat" title="AI Chat" link nuxt to="/chat"></v-list-item>
@@ -16,11 +15,9 @@
                 </v-list>
             </v-navigation-drawer>
         </div>
-        <v-main>
-            <v-container>
-                <slot />
-            </v-container>
-        </v-main>
+          <v-container>
+            <slot />
+          </v-container>
     </v-layout>
 </template>
 <script>

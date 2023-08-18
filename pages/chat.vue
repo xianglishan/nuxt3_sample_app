@@ -19,35 +19,38 @@
 </template>
 
 <script lang="ts">
-
-
+// 送信受信したらスムーススクロールしたいね
 export default {
   data: () => ({
     messages : [{
             "user":false, 
-            "message":"色や影、角などのスタイルは variant か props, color で指定することで、 一括して自動で設定されます。class で設定することも可能ですが、 指定内容によっては variant / props の設定が優先されることがあります。(適当なテスト用のテキスト)", 
-        }, {
-            "user":true, 
-            "message":"asdfasdfahu@uibjkh;sakdfj"
-        }
+            "message":"Hello! How can I assist you today?", 
+        }, 
     ],
     message : "", 
     inputText : "", 
   }),
   methods: {
-    pushEnter(){
+    async pushEnter(){
+        // inputTextが空白or''の場合
+        if (!this.inputText || !this.inputText.match(/\S/g)) {
+            this.inputText = ''
+            return
+        };
         // texitfield更新
         this.message = this.inputText;
         this.inputText = "";
         // messagesに追加して表示
-        this.messages.push({"user":true, "message":this.message})
-        console.log(this.messages)
-        // openai apiたたく
-        const rep = useFetch('/api/openai')
-        this.messages.push({"user":false, "message":rep})
-        console.log(rep)
+        this.messages.push({"user":true, "message":this.message});
+        // サーバーサイド経由でopenai apiたたく
+        const res = await useFetch('/api/openai', {
+            method: "POST", 
+            body: {"messages": this.messages}, 
+        });
+        if (res.data.value) {
+            this.messages.push({"user":false, "message":res.data.value});
+        }
     }
   }
 }
-
 </script>
